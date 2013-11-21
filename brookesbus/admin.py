@@ -1,5 +1,5 @@
 from django.contrib import admin
-from brookesbus.models import Bus, Stop, Schedule
+from brookesbus.models import Bus, Stop, Route, Schedule
 
 
 class BusAdmin(admin.ModelAdmin):
@@ -17,6 +17,13 @@ admin.site.register(Stop, StopAdmin)
 
 
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('bus', 'stop', 'eta')
+    list_display = ('bus', 'stop', 'eta', 'route')
 
 admin.site.register(Schedule, ScheduleAdmin)
+
+
+class RouteAdmin(admin.ModelAdmin):
+    list_display = ('start_time',)
+
+
+admin.site.register(Route, RouteAdmin)

@@ -5,8 +5,15 @@ from .models import Bus, Stop, Schedule
 
 class BusList(ListView):
     model = Bus
-    template_name = 'brookesbus/bus_list.html'
 
 
 class BusDetail(DetailView):
     model = Bus
+
+
+class ScheduleDetail(DetailView):
+    model = Schedule
+
+
+class StopDetail(DetailView):
+    model = Stop

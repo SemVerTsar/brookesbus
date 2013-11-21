@@ -13,6 +13,12 @@ urlpatterns = patterns('',
         url(r'^$', views.BusList.as_view(), name='bus-list'),
         url(r'^(?P<pk>\d+)/', views.BusDetail.as_view(), name='bus-detail'),
         ))),
+    url(r'^schedule/', include(patterns('',
+        url(r'^(?P<pk>\d+)/', views.ScheduleDetail.as_view(), name='schedule-detail'),
+        ))),
+    url(r'^stop/', include(patterns('',
+        url(r'^(?P<pk>\d+)/', views.StopDetail.as_view(), name='stop-detail'),
+        ))),
     url(r'^admin/', include(admin.site.urls)),
 )
 
