@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+    {% for bus in bus_list %}
+        <li>
+            <a href="{{ bus.get_absolute_url }}">{{ bus.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
