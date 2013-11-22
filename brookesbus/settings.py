@@ -70,7 +70,6 @@ INSTALLED_APPS = (
     'brookesbus',
 
     'admin_sso',
-    'crispy_forms',
     'debug_toolbar',
     'django_extensions',
     'raven.contrib.django',
