@@ -1,0 +1,1903 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: admin_sso_assignment; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE admin_sso_assignment (
+    id integer NOT NULL,
+    username_mode integer NOT NULL,
+    username character varying(255) NOT NULL,
+    domain character varying(255) NOT NULL,
+    copy boolean NOT NULL,
+    weight integer NOT NULL,
+    user_id integer,
+    CONSTRAINT admin_sso_assignment_weight_check CHECK ((weight >= 0))
+);
+
+
+ALTER TABLE public.admin_sso_assignment OWNER TO "Philip";
+
+--
+-- Name: admin_sso_assignment_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE admin_sso_assignment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_sso_assignment_id_seq OWNER TO "Philip";
+
+--
+-- Name: admin_sso_assignment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE admin_sso_assignment_id_seq OWNED BY admin_sso_assignment.id;
+
+
+--
+-- Name: admin_sso_assignment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('admin_sso_assignment_id_seq', 1, false);
+
+
+--
+-- Name: admin_sso_association; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE admin_sso_association (
+    id integer NOT NULL,
+    server_url character varying(2047) NOT NULL,
+    handle character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL,
+    issued integer NOT NULL,
+    lifetime integer NOT NULL,
+    assoc_type character varying(64) NOT NULL
+);
+
+
+ALTER TABLE public.admin_sso_association OWNER TO "Philip";
+
+--
+-- Name: admin_sso_association_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE admin_sso_association_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_sso_association_id_seq OWNER TO "Philip";
+
+--
+-- Name: admin_sso_association_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE admin_sso_association_id_seq OWNED BY admin_sso_association.id;
+
+
+--
+-- Name: admin_sso_association_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('admin_sso_association_id_seq', 1, false);
+
+
+--
+-- Name: admin_sso_nonce; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE admin_sso_nonce (
+    id integer NOT NULL,
+    server_url character varying(2047) NOT NULL,
+    "timestamp" integer NOT NULL,
+    salt character varying(40) NOT NULL
+);
+
+
+ALTER TABLE public.admin_sso_nonce OWNER TO "Philip";
+
+--
+-- Name: admin_sso_nonce_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE admin_sso_nonce_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_sso_nonce_id_seq OWNER TO "Philip";
+
+--
+-- Name: admin_sso_nonce_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE admin_sso_nonce_id_seq OWNED BY admin_sso_nonce.id;
+
+
+--
+-- Name: admin_sso_nonce_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('admin_sso_nonce_id_seq', 1, false);
+
+
+--
+-- Name: admin_sso_openiduser; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE admin_sso_openiduser (
+    id integer NOT NULL,
+    claimed_id text NOT NULL,
+    email character varying(75) NOT NULL,
+    fullname character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    last_login timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.admin_sso_openiduser OWNER TO "Philip";
+
+--
+-- Name: admin_sso_openiduser_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE admin_sso_openiduser_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_sso_openiduser_id_seq OWNER TO "Philip";
+
+--
+-- Name: admin_sso_openiduser_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE admin_sso_openiduser_id_seq OWNED BY admin_sso_openiduser.id;
+
+
+--
+-- Name: admin_sso_openiduser_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('admin_sso_openiduser_id_seq', 1, false);
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO "Philip";
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO "Philip";
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO "Philip";
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO "Philip";
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO "Philip";
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO "Philip";
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 48, true);
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO "Philip";
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO "Philip";
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO "Philip";
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO "Philip";
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO "Philip";
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO "Philip";
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: brookesbus_bus; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE brookesbus_bus (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.brookesbus_bus OWNER TO "Philip";
+
+--
+-- Name: brookesbus_bus_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE brookesbus_bus_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brookesbus_bus_id_seq OWNER TO "Philip";
+
+--
+-- Name: brookesbus_bus_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE brookesbus_bus_id_seq OWNED BY brookesbus_bus.id;
+
+
+--
+-- Name: brookesbus_bus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('brookesbus_bus_id_seq', 1, true);
+
+
+--
+-- Name: brookesbus_bus_stops; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE brookesbus_bus_stops (
+    id integer NOT NULL,
+    bus_id integer NOT NULL,
+    stop_id integer NOT NULL
+);
+
+
+ALTER TABLE public.brookesbus_bus_stops OWNER TO "Philip";
+
+--
+-- Name: brookesbus_bus_stops_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE brookesbus_bus_stops_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brookesbus_bus_stops_id_seq OWNER TO "Philip";
+
+--
+-- Name: brookesbus_bus_stops_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE brookesbus_bus_stops_id_seq OWNED BY brookesbus_bus_stops.id;
+
+
+--
+-- Name: brookesbus_bus_stops_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('brookesbus_bus_stops_id_seq', 5, true);
+
+
+--
+-- Name: brookesbus_route; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE brookesbus_route (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    start_time time without time zone NOT NULL
+);
+
+
+ALTER TABLE public.brookesbus_route OWNER TO "Philip";
+
+--
+-- Name: brookesbus_route_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE brookesbus_route_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brookesbus_route_id_seq OWNER TO "Philip";
+
+--
+-- Name: brookesbus_route_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE brookesbus_route_id_seq OWNED BY brookesbus_route.id;
+
+
+--
+-- Name: brookesbus_route_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('brookesbus_route_id_seq', 31, true);
+
+
+--
+-- Name: brookesbus_schedule; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE brookesbus_schedule (
+    id integer NOT NULL,
+    bus_id integer NOT NULL,
+    stop_id integer NOT NULL,
+    eta time without time zone NOT NULL,
+    route_id integer NOT NULL
+);
+
+
+ALTER TABLE public.brookesbus_schedule OWNER TO "Philip";
+
+--
+-- Name: brookesbus_schedule_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE brookesbus_schedule_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brookesbus_schedule_id_seq OWNER TO "Philip";
+
+--
+-- Name: brookesbus_schedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE brookesbus_schedule_id_seq OWNED BY brookesbus_schedule.id;
+
+
+--
+-- Name: brookesbus_schedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('brookesbus_schedule_id_seq', 34, true);
+
+
+--
+-- Name: brookesbus_stop; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE brookesbus_stop (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.brookesbus_stop OWNER TO "Philip";
+
+--
+-- Name: brookesbus_stop_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE brookesbus_stop_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brookesbus_stop_id_seq OWNER TO "Philip";
+
+--
+-- Name: brookesbus_stop_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE brookesbus_stop_id_seq OWNED BY brookesbus_stop.id;
+
+
+--
+-- Name: brookesbus_stop_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('brookesbus_stop_id_seq', 5, true);
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    user_id integer NOT NULL,
+    content_type_id integer,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO "Philip";
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO "Philip";
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 109, true);
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO "Philip";
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO "Philip";
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 16, true);
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO "Philip";
+
+--
+-- Name: django_site; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE django_site (
+    id integer NOT NULL,
+    domain character varying(100) NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.django_site OWNER TO "Philip";
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE django_site_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_site_id_seq OWNER TO "Philip";
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE django_site_id_seq OWNED BY django_site.id;
+
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('django_site_id_seq', 1, true);
+
+
+--
+-- Name: south_migrationhistory; Type: TABLE; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE TABLE south_migrationhistory (
+    id integer NOT NULL,
+    app_name character varying(255) NOT NULL,
+    migration character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.south_migrationhistory OWNER TO "Philip";
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE; Schema: public; Owner: Philip
+--
+
+CREATE SEQUENCE south_migrationhistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.south_migrationhistory_id_seq OWNER TO "Philip";
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Philip
+--
+
+ALTER SEQUENCE south_migrationhistory_id_seq OWNED BY south_migrationhistory.id;
+
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Philip
+--
+
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 1, false);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY admin_sso_assignment ALTER COLUMN id SET DEFAULT nextval('admin_sso_assignment_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY admin_sso_association ALTER COLUMN id SET DEFAULT nextval('admin_sso_association_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY admin_sso_nonce ALTER COLUMN id SET DEFAULT nextval('admin_sso_nonce_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY admin_sso_openiduser ALTER COLUMN id SET DEFAULT nextval('admin_sso_openiduser_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_bus ALTER COLUMN id SET DEFAULT nextval('brookesbus_bus_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_bus_stops ALTER COLUMN id SET DEFAULT nextval('brookesbus_bus_stops_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_route ALTER COLUMN id SET DEFAULT nextval('brookesbus_route_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_schedule ALTER COLUMN id SET DEFAULT nextval('brookesbus_schedule_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_stop ALTER COLUMN id SET DEFAULT nextval('brookesbus_stop_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY django_site ALTER COLUMN id SET DEFAULT nextval('django_site_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY south_migrationhistory ALTER COLUMN id SET DEFAULT nextval('south_migrationhistory_id_seq'::regclass);
+
+
+--
+-- Data for Name: admin_sso_assignment; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY admin_sso_assignment (id, username_mode, username, domain, copy, weight, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: admin_sso_association; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY admin_sso_association (id, server_url, handle, secret, issued, lifetime, assoc_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: admin_sso_nonce; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY admin_sso_nonce (id, server_url, "timestamp", salt) FROM stdin;
+\.
+
+
+--
+-- Data for Name: admin_sso_openiduser; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY admin_sso_openiduser (id, claimed_id, email, fullname, user_id, last_login) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add bus	1	add_bus
+2	Can change bus	1	change_bus
+3	Can delete bus	1	delete_bus
+4	Can add stop	2	add_stop
+5	Can change stop	2	change_stop
+6	Can delete stop	2	delete_stop
+7	Can add schedule	3	add_schedule
+8	Can change schedule	3	change_schedule
+9	Can delete schedule	3	delete_schedule
+10	Can add route	4	add_route
+11	Can change route	4	change_route
+12	Can delete route	4	delete_route
+13	Can add Assignment	5	add_assignment
+14	Can change Assignment	5	change_assignment
+15	Can delete Assignment	5	delete_assignment
+16	Can add OpenIDUser	6	add_openiduser
+17	Can change OpenIDUser	6	change_openiduser
+18	Can delete OpenIDUser	6	delete_openiduser
+19	Can add nonce	7	add_nonce
+20	Can change nonce	7	change_nonce
+21	Can delete nonce	7	delete_nonce
+22	Can add association	8	add_association
+23	Can change association	8	change_association
+24	Can delete association	8	delete_association
+25	Can add migration history	9	add_migrationhistory
+26	Can change migration history	9	change_migrationhistory
+27	Can delete migration history	9	delete_migrationhistory
+28	Can add permission	10	add_permission
+29	Can change permission	10	change_permission
+30	Can delete permission	10	delete_permission
+31	Can add group	11	add_group
+32	Can change group	11	change_group
+33	Can delete group	11	delete_group
+34	Can add user	12	add_user
+35	Can change user	12	change_user
+36	Can delete user	12	delete_user
+37	Can add content type	13	add_contenttype
+38	Can change content type	13	change_contenttype
+39	Can delete content type	13	delete_contenttype
+40	Can add session	14	add_session
+41	Can change session	14	change_session
+42	Can delete session	14	delete_session
+43	Can add site	15	add_site
+44	Can change site	15	change_site
+45	Can delete site	15	delete_site
+46	Can add log entry	16	add_logentry
+47	Can change log entry	16	change_logentry
+48	Can delete log entry	16	delete_logentry
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$10000$mlegxBO3a4gB$IYOm9OLJAlvFb4rk+vbEWyMAUu6ivnoxCf+GMHhha2I=	2013-11-22 09:46:00.094745+00	t	admin			10070312@brookes.ac.uk	t	t	2013-11-21 20:35:44.088081+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: brookesbus_bus; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY brookesbus_bus (id, name) FROM stdin;
+1	U5X
+\.
+
+
+--
+-- Data for Name: brookesbus_bus_stops; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY brookesbus_bus_stops (id, bus_id, stop_id) FROM stdin;
+1	1	1
+2	1	2
+3	1	3
+4	1	4
+5	1	5
+\.
+
+
+--
+-- Data for Name: brookesbus_route; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY brookesbus_route (id, name, start_time) FROM stdin;
+1	U5X Cowley - Wheatley	07:00:00
+2	U5X Cowley - Wheatley	07:30:00
+3	U5X Cowley - Wheatley	07:50:00
+4	U5X Cowley - Wheatley	08:08:00
+6	U5X Cowley - Wheatley	09:15:00
+5	U5X Cowley - Wheatley	08:40:00
+7	U5X Cowley - Wheatley	10:05:00
+8	U5X Cowley - Wheatley	10:50:00
+9	U5X Cowley - Wheatley	11:35:00
+11	U5X Cowley - Wheatley	13:05:00
+12	U5X Cowley - Wheatley	13:50:00
+13	U5X Cowley - Wheatley	14:30:00
+14	U5X Cowley - Wheatley	15:20:00
+15	U5X Cowley - Wheatley	16:20:00
+16	U5X Cowley - Wheatley	16:50:00
+10	U5X Cowley - Wheatley	12:20:00
+28	14.41 PM	14:41:00
+17	U5X Cowley - Wheatley	07:41:00
+18	U5X Cowley - Wheatley	08:02:00
+19	U5X Cowley - Wheatley	08:20:00
+20	U5X Cowley - Wheatley	08:52:00
+21	U5X Cowley - Wheatley	09:26:00
+22	U5X Cowley - Wheatley	10:16:00
+23	U5X Cowley - Wheatley	11:01:00
+24	U5X Cowley - Wheatley	11:46:00
+25	U5X Cowley - Wheatley	12:31:00
+26	U5X Cowley - Wheatley	13:16:00
+27	U5X Cowley - Wheatley	14:01:00
+29	U5X Cowley - Wheatley	15:31:00
+30	U5X Cowley - Wheatley	16:31:00
+31	U5X Cowley - Wheatley	17:01:00
+\.
+
+
+--
+-- Data for Name: brookesbus_schedule; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY brookesbus_schedule (id, bus_id, stop_id, eta, route_id) FROM stdin;
+1	1	1	07:00:00	1
+2	1	2	07:11:00	1
+3	1	3	07:14:00	1
+4	1	4	07:23:00	1
+5	1	5	07:33:00	1
+7	1	1	07:30:00	2
+8	1	1	07:50:00	3
+9	1	1	08:08:00	4
+10	1	1	09:15:00	6
+11	1	1	08:40:00	5
+12	1	1	10:05:00	7
+13	1	1	10:50:00	8
+14	1	1	11:35:00	9
+15	1	1	12:20:00	10
+16	1	1	13:05:00	11
+17	1	1	14:30:00	13
+18	1	1	15:20:00	14
+19	1	1	16:20:00	15
+20	1	1	16:50:00	16
+21	1	2	07:41:00	17
+22	1	2	08:02:00	18
+23	1	2	08:20:00	19
+24	1	2	08:52:00	20
+25	1	2	09:26:00	21
+26	1	2	10:16:00	22
+27	1	2	11:01:00	23
+28	1	2	11:46:00	24
+29	1	2	12:31:00	25
+30	1	2	13:16:00	26
+31	1	2	14:01:00	27
+32	1	2	15:31:00	29
+33	1	2	16:31:00	30
+34	1	2	17:01:00	31
+\.
+
+
+--
+-- Data for Name: brookesbus_stop; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY brookesbus_stop (id, name) FROM stdin;
+1	Cowley Rd The Plain
+2	Cowley The Swan
+3	Paul Kent Hall
+4	Sandhills A40
+5	Wheatley campus
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
+1	2013-11-21 20:37:12.13106+00	1	2	1	Cowley Rd The Plain	1	
+2	2013-11-21 20:37:20.030914+00	1	2	2	Cowley The Swan	1	
+3	2013-11-21 20:37:27.643937+00	1	2	3	Paul Kent Hall	1	
+4	2013-11-21 20:37:33.552831+00	1	2	4	Sandhills A40	1	
+5	2013-11-21 20:37:41.037336+00	1	2	5	Wheatley campus	1	
+6	2013-11-21 20:38:02.310709+00	1	1	1	U5X	1	
+7	2013-11-21 20:38:58.131777+00	1	4	1	U5X Cowley - Wheatley	1	
+8	2013-11-21 20:39:40.448826+00	1	3	1	Schedule object	1	
+9	2013-11-21 20:40:05.311882+00	1	3	2	Schedule object	1	
+10	2013-11-21 20:40:26.925632+00	1	3	3	Schedule object	1	
+11	2013-11-21 20:40:48.46671+00	1	3	4	Schedule object	1	
+12	2013-11-21 20:41:09.364366+00	1	3	5	Schedule object	1	
+13	2013-11-22 10:41:51.950674+00	1	4	2	7.30 a.m. 07:30AM	1	
+14	2013-11-22 10:43:29.022835+00	1	4	3	7.50 07:50AM	1	
+15	2013-11-22 10:43:44.386757+00	1	4	4	8.08 08:08AM	1	
+16	2013-11-22 10:43:57.001732+00	1	4	5	8.40 08:40AM	1	
+17	2013-11-22 10:44:14.177178+00	1	4	6	9.15 09:15AM	1	
+18	2013-11-22 10:44:27.389679+00	1	4	7	10.05 10:05AM	1	
+19	2013-11-22 10:44:42.440661+00	1	4	8	10.50 10:50AM	1	
+20	2013-11-22 10:44:59.24622+00	1	4	9	11.35 11:35AM	1	
+21	2013-11-22 10:45:09.005749+00	1	4	10	12.20 12:20AM	1	
+22	2013-11-22 10:46:21.894205+00	1	4	11	13.05 01:05PM	1	
+23	2013-11-22 10:46:55.782708+00	1	4	12	13.50 01:50PM	1	
+24	2013-11-22 10:47:24.369412+00	1	4	13	14.30 02:30PM	1	
+25	2013-11-22 10:47:42.1596+00	1	4	14	15.20 03:20PM	1	
+26	2013-11-22 10:47:56.279635+00	1	4	15	16.20 04:20PM	1	
+27	2013-11-22 10:48:28.54143+00	1	4	16	16.50 04:50PM	1	
+28	2013-11-22 10:50:31.768575+00	1	3	6	Schedule object	1	
+29	2013-11-22 10:50:59.03894+00	1	3	6	Schedule object	3	
+30	2013-11-22 10:52:46.603942+00	1	4	2	U5X Cowley - Wheatley 07:30AM	2	Changed name.
+31	2013-11-22 10:52:52.745972+00	1	4	3	U5X Cowley - Wheatley 07:50AM	2	Changed name.
+32	2013-11-22 10:52:56.659528+00	1	4	3	U5X Cowley - Wheatley 07:50AM	2	No fields changed.
+33	2013-11-22 10:53:01.985482+00	1	4	4	U5X Cowley - Wheatley 08:08AM	2	Changed name.
+34	2013-11-22 10:53:07.183024+00	1	4	5	U5X Cowley - Wheatley 08:40AM	2	Changed name.
+35	2013-11-22 10:53:12.091936+00	1	4	6	U5X Cowley - Wheatley 09:15AM	2	Changed name.
+36	2013-11-22 10:53:15.775713+00	1	4	5	U5X Cowley - Wheatley 08:40AM	2	No fields changed.
+37	2013-11-22 10:53:20.695535+00	1	4	7	U5X Cowley - Wheatley 10:05AM	2	Changed name.
+38	2013-11-22 10:53:25.140449+00	1	4	8	U5X Cowley - Wheatley 10:50AM	2	Changed name.
+39	2013-11-22 10:53:30.115045+00	1	4	9	U5X Cowley - Wheatley 11:35AM	2	Changed name.
+40	2013-11-22 10:53:35.104357+00	1	4	10	U5X Cowley - Wheatley 12:20AM	2	Changed name.
+41	2013-11-22 10:53:40.220909+00	1	4	11	U5X Cowley - Wheatley 01:05PM	2	Changed name.
+42	2013-11-22 10:53:44.965823+00	1	4	12	U5X Cowley - Wheatley 01:50PM	2	Changed name.
+43	2013-11-22 10:53:48.958941+00	1	4	12	U5X Cowley - Wheatley 01:50PM	2	No fields changed.
+44	2013-11-22 10:53:53.114812+00	1	4	13	U5X Cowley - Wheatley 02:30PM	2	Changed name.
+45	2013-11-22 10:53:58.244989+00	1	4	14	U5X Cowley - Wheatley 03:20PM	2	Changed name.
+46	2013-11-22 10:54:02.164936+00	1	4	14	U5X Cowley - Wheatley 03:20PM	2	No fields changed.
+47	2013-11-22 10:54:09.211056+00	1	4	15	U5X Cowley - Wheatley 04:20PM	2	Changed name.
+48	2013-11-22 10:54:13.529974+00	1	4	15	U5X Cowley - Wheatley 04:20PM	2	No fields changed.
+49	2013-11-22 10:54:19.070281+00	1	4	16	U5X Cowley - Wheatley 04:50PM	2	Changed name.
+50	2013-11-22 10:55:10.558458+00	1	3	7	Schedule object	1	
+51	2013-11-22 10:55:29.748636+00	1	3	8	Schedule object	1	
+52	2013-11-22 10:55:48.790954+00	1	3	9	Schedule object	1	
+53	2013-11-22 10:56:02.825116+00	1	3	10	Schedule object	1	
+54	2013-11-22 10:56:24.358848+00	1	3	11	Schedule object	1	
+55	2013-11-22 10:56:40.078478+00	1	3	12	Schedule object	1	
+56	2013-11-22 10:56:54.827819+00	1	3	13	Schedule object	1	
+57	2013-11-22 10:57:13.258501+00	1	3	14	Schedule object	1	
+58	2013-11-22 10:57:39.060293+00	1	3	15	Schedule object	1	
+59	2013-11-22 10:57:57.494004+00	1	3	16	Schedule object	1	
+60	2013-11-22 10:58:15.330869+00	1	3	17	Schedule object	1	
+61	2013-11-22 10:58:28.31485+00	1	3	18	Schedule object	1	
+62	2013-11-22 10:58:45.307035+00	1	3	19	Schedule object	1	
+63	2013-11-22 10:58:58.780082+00	1	3	20	Schedule object	1	
+64	2013-11-22 10:59:30.056901+00	1	4	10	U5X Cowley - Wheatley 12:20PM	2	Changed start_time.
+65	2013-11-22 11:00:49.094258+00	1	4	17	7.41 a.m. 07:41AM	1	
+66	2013-11-22 11:01:22.199402+00	1	4	18	8.02 AM 08:02AM	1	
+67	2013-11-22 11:02:14.626939+00	1	4	19	8.20 AM 08:20AM	1	
+68	2013-11-22 11:02:41.970983+00	1	4	20	8.52 AM 08:52AM	1	
+69	2013-11-22 11:02:59.455631+00	1	4	21	9.26 AM 09:26AM	1	
+70	2013-11-22 11:03:11.141486+00	1	4	22	10.16 AM 10:16AM	1	
+71	2013-11-22 11:03:22.46046+00	1	4	23	11.01 AM 11:01AM	1	
+72	2013-11-22 11:03:33.400531+00	1	4	24	11.46 AM 11:46AM	1	
+73	2013-11-22 11:03:51.108079+00	1	4	25	12.31 PM 12:31PM	1	
+74	2013-11-22 11:04:08.936205+00	1	4	26	13.16 PM 01:16PM	1	
+75	2013-11-22 11:04:58.069871+00	1	4	27	14.01 PM 02:01PM	1	
+76	2013-11-22 11:05:18.357636+00	1	4	28	14.41 PM 02:41PM	1	
+77	2013-11-22 11:05:41.70111+00	1	4	29	15.31 03:31PM	1	
+78	2013-11-22 11:05:57.363243+00	1	4	30	16.31 04:31PM	1	
+79	2013-11-22 11:06:12.743253+00	1	4	31	17.01 PM 05:01PM	1	
+80	2013-11-22 11:08:15.653498+00	1	4	17	U5X Cowley - Wheatley 07:41AM	2	Changed name.
+81	2013-11-22 11:08:20.182241+00	1	4	17	U5X Cowley - Wheatley 07:41AM	2	No fields changed.
+82	2013-11-22 11:08:45.370482+00	1	4	18	U5X Cowley - Wheatley 08:02AM	2	Changed name.
+83	2013-11-22 11:08:52.436737+00	1	4	19	U5X Cowley - Wheatley 08:20AM	2	Changed name.
+84	2013-11-22 11:09:00.793435+00	1	4	20	U5X Cowley - Wheatley 08:52AM	2	Changed name.
+85	2013-11-22 11:09:13.632115+00	1	4	21	U5X Cowley - Wheatley 09:26AM	2	Changed name.
+86	2013-11-22 11:09:21.008964+00	1	4	22	U5X Cowley - Wheatley 10:16AM	2	Changed name.
+87	2013-11-22 11:09:31.801575+00	1	4	23	U5X Cowley - Wheatley 11:01AM	2	Changed name.
+88	2013-11-22 11:09:46.752071+00	1	4	24	U5X Cowley - Wheatley 11:46AM	2	Changed name.
+89	2013-11-22 11:09:51.903134+00	1	4	25	U5X Cowley - Wheatley 12:31PM	2	Changed name.
+90	2013-11-22 11:09:56.652861+00	1	4	26	U5X Cowley - Wheatley 01:16PM	2	Changed name.
+91	2013-11-22 11:10:01.72207+00	1	4	26	U5X Cowley - Wheatley 01:16PM	2	No fields changed.
+92	2013-11-22 11:10:16.004441+00	1	4	27	U5X Cowley - Wheatley 02:01PM	2	Changed name.
+93	2013-11-22 11:10:22.736002+00	1	4	29	U5X Cowley - Wheatley 03:31PM	2	Changed name.
+94	2013-11-22 11:10:28.587984+00	1	4	30	U5X Cowley - Wheatley 04:31PM	2	Changed name.
+95	2013-11-22 11:10:33.643169+00	1	4	31	U5X Cowley - Wheatley 05:01PM	2	Changed name.
+96	2013-11-22 11:11:43.832229+00	1	3	21	Schedule object	1	
+97	2013-11-22 11:12:02.291194+00	1	3	22	Schedule object	1	
+98	2013-11-22 11:12:16.859188+00	1	3	23	Schedule object	1	
+99	2013-11-22 11:12:44.584687+00	1	3	24	Schedule object	1	
+100	2013-11-22 11:13:00.04656+00	1	3	25	Schedule object	1	
+101	2013-11-22 11:16:19.008326+00	1	3	26	Schedule object	1	
+102	2013-11-22 11:16:34.989944+00	1	3	27	Schedule object	1	
+103	2013-11-22 11:16:54.003826+00	1	3	28	Schedule object	1	
+104	2013-11-22 11:19:48.798452+00	1	3	29	Schedule object	1	
+105	2013-11-22 11:20:07.990383+00	1	3	30	Schedule object	1	
+106	2013-11-22 11:20:20.885744+00	1	3	31	Schedule object	1	
+107	2013-11-22 11:20:34.428385+00	1	3	32	Schedule object	1	
+108	2013-11-22 11:20:47.337718+00	1	3	33	Schedule object	1	
+109	2013-11-22 11:20:59.749406+00	1	3	34	Schedule object	1	
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	bus	brookesbus	bus
+2	stop	brookesbus	stop
+3	schedule	brookesbus	schedule
+4	route	brookesbus	route
+5	Assignment	admin_sso	assignment
+6	OpenIDUser	admin_sso	openiduser
+7	nonce	admin_sso	nonce
+8	association	admin_sso	association
+9	migration history	south	migrationhistory
+10	permission	auth	permission
+11	group	auth	group
+12	user	auth	user
+13	content type	contenttypes	contenttype
+14	session	sessions	session
+15	site	sites	site
+16	log entry	admin	logentry
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+ppb19lvf6oo21w90oryux0d1lb9urctf	Y2QzNWExZmNiZjc5ZTYxZDM3YjcwNzBhZmJiZGYwMjJiYjY3ZWVjOTqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAXUu	2013-12-05 20:36:37.772765+00
+1x07bpxn8gxzo3h0mumg4iydoxpofj8g	Y2QzNWExZmNiZjc5ZTYxZDM3YjcwNzBhZmJiZGYwMjJiYjY3ZWVjOTqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAXUu	2013-12-06 09:46:00.097629+00
+\.
+
+
+--
+-- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY django_site (id, domain, name) FROM stdin;
+1	example.com	example.com
+\.
+
+
+--
+-- Data for Name: south_migrationhistory; Type: TABLE DATA; Schema: public; Owner: Philip
+--
+
+COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
+\.
+
+
+--
+-- Name: admin_sso_assignment_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY admin_sso_assignment
+    ADD CONSTRAINT admin_sso_assignment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_sso_association_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY admin_sso_association
+    ADD CONSTRAINT admin_sso_association_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_sso_nonce_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY admin_sso_nonce
+    ADD CONSTRAINT admin_sso_nonce_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_sso_openiduser_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY admin_sso_openiduser
+    ADD CONSTRAINT admin_sso_openiduser_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: brookesbus_bus_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY brookesbus_bus
+    ADD CONSTRAINT brookesbus_bus_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brookesbus_bus_stops_bus_id_stop_id_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY brookesbus_bus_stops
+    ADD CONSTRAINT brookesbus_bus_stops_bus_id_stop_id_key UNIQUE (bus_id, stop_id);
+
+
+--
+-- Name: brookesbus_bus_stops_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY brookesbus_bus_stops
+    ADD CONSTRAINT brookesbus_bus_stops_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brookesbus_route_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY brookesbus_route
+    ADD CONSTRAINT brookesbus_route_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brookesbus_schedule_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY brookesbus_schedule
+    ADD CONSTRAINT brookesbus_schedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brookesbus_stop_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY brookesbus_stop
+    ADD CONSTRAINT brookesbus_stop_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY django_site
+    ADD CONSTRAINT django_site_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: south_migrationhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: Philip; Tablespace: 
+--
+
+ALTER TABLE ONLY south_migrationhistory
+    ADD CONSTRAINT south_migrationhistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_sso_assignment_user_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX admin_sso_assignment_user_id ON admin_sso_assignment USING btree (user_id);
+
+
+--
+-- Name: admin_sso_openiduser_user_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX admin_sso_openiduser_user_id ON admin_sso_openiduser USING btree (user_id);
+
+
+--
+-- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: brookesbus_bus_stops_bus_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX brookesbus_bus_stops_bus_id ON brookesbus_bus_stops USING btree (bus_id);
+
+
+--
+-- Name: brookesbus_bus_stops_stop_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX brookesbus_bus_stops_stop_id ON brookesbus_bus_stops USING btree (stop_id);
+
+
+--
+-- Name: brookesbus_schedule_bus_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX brookesbus_schedule_bus_id ON brookesbus_schedule USING btree (bus_id);
+
+
+--
+-- Name: brookesbus_schedule_route_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX brookesbus_schedule_route_id ON brookesbus_schedule USING btree (route_id);
+
+
+--
+-- Name: brookesbus_schedule_stop_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX brookesbus_schedule_stop_id ON brookesbus_schedule USING btree (stop_id);
+
+
+--
+-- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: Philip; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: brookesbus_schedule_bus_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_schedule
+    ADD CONSTRAINT brookesbus_schedule_bus_id_fkey FOREIGN KEY (bus_id) REFERENCES brookesbus_bus(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: brookesbus_schedule_stop_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_schedule
+    ADD CONSTRAINT brookesbus_schedule_stop_id_fkey FOREIGN KEY (stop_id) REFERENCES brookesbus_stop(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: bus_id_refs_id_80cb085f; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_bus_stops
+    ADD CONSTRAINT bus_id_refs_id_80cb085f FOREIGN KEY (bus_id) REFERENCES brookesbus_bus(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT content_type_id_refs_id_d043b34a FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_content_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_fkey FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: route_id_refs_id_efc30b9e; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_schedule
+    ADD CONSTRAINT route_id_refs_id_efc30b9e FOREIGN KEY (route_id) REFERENCES brookesbus_route(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: stop_id_refs_id_b9bfd1f7; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY brookesbus_bus_stops
+    ADD CONSTRAINT stop_id_refs_id_b9bfd1f7 FOREIGN KEY (stop_id) REFERENCES brookesbus_stop(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT user_id_refs_id_40c41112 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_4dc23c39 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_66228d0f; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY admin_sso_openiduser
+    ADD CONSTRAINT user_id_refs_id_66228d0f FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_dd1177ea; Type: FK CONSTRAINT; Schema: public; Owner: Philip
+--
+
+ALTER TABLE ONLY admin_sso_assignment
+    ADD CONSTRAINT user_id_refs_id_dd1177ea FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: Philip
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "Philip";
+GRANT ALL ON SCHEMA public TO "Philip";
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
