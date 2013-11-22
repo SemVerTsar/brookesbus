@@ -3,6 +3,7 @@ Django==1.5.4
 dj-database-url==0.2.1
 django-admin-sso==0.1.2
 django-cache-url==0.3.4
+django-debug-toolbar==0.9.4
 psycopg2==2.4.6
 raven==3.3.6
 South==0.7.6

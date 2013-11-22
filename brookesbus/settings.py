@@ -70,7 +70,7 @@ INSTALLED_APPS = (
     'brookesbus',
 
     'admin_sso',
-    #'debug_toolbar',
+    'debug_toolbar',
     'raven.contrib.django',
     'south',
 
