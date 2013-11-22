@@ -71,6 +71,7 @@ INSTALLED_APPS = (
 
     'admin_sso',
     'debug_toolbar',
+    'gunicorn',
     'raven.contrib.django',
     'south',
 
