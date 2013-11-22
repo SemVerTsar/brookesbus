@@ -1,1 +1,1 @@
-web: gunicorn brookebus.wsgi
+web: python brookesbus/manage.py runserver
