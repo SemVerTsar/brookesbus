@@ -11,6 +11,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', include(patterns('',
         url(r'^$', views.BusList.as_view(), name='bus-list'),
+        ))),
+    url(r'^bus/', include(patterns('',
         url(r'^(?P<pk>\d+)/', views.BusDetail.as_view(), name='bus-detail'),
         ))),
     url(r'^schedule/', include(patterns('',
