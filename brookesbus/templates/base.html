@@ -2,13 +2,17 @@
 {% load url from future %}
 
 <html>
-    <head></head>
+    <head>
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles.css">
+    </head>
 
     <body>
 
         <div class="content">
             {% block title %}
-            <h1>Brookes Bus</h1>
+            <div class="header">
+                <h1>Brookes Bus</h1>
+            </div>
             {% endblock title %}
 
             {% block content %}
