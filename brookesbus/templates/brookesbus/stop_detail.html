@@ -7,7 +7,9 @@
 {% block content %}
     <ul>
         {% for sched in stop.schedule.all %}
+            {% if sched.eta >= timenow %}
             <li>{{ sched.bus }}, {{ sched.eta }} ,  {{ sched.route.name }}</li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% endblock content %}

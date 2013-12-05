@@ -20,7 +20,11 @@ class ScheduleDetail(DetailView):
 class StopDetail(DetailView):
     model = Stop
 
-    def get_queryset(self):
-        now = datetime.datetime.now().time()
-        qs = super(StopDetail, self).get_queryset()
-        return qs.filter(schedule__eta__gte=now)
+    def get_context_data(self, **kwargs):
+        kwargs['timenow'] = datetime.datetime.now().time()
+        return super(StopDetail, self).get_context_data(**kwargs)
+
+    # def get_queryset(self):
+    #     now = datetime.datetime.now().time()
+    #     qs = super(StopDetail, self).get_queryset()
+    #     return qs.filter(schedule__eta__gte=now)
