@@ -1,8 +1,8 @@
-  @font-face {
-        font-family: 'HelveticaNeue';
-        src: url('HelveticaNeueMedium.ttf');
-        font-weight: normal;
-       font-style: normal;
+@font-face {
+    font-family: 'HelveticaNeue';
+    src: url('HelveticaNeueMedium.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
@@ -24,8 +24,7 @@ h1{
     color: white;
 }
 
-ul
-{
+ul {
     list-style-type: none;
 }
 
