@@ -16,3 +16,10 @@ h1{
     text-align: center;;
     color: white;
 }
+
+ul
+{
+    list-style-type: none;
+}
+
+
