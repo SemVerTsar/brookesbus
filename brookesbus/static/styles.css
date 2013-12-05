@@ -25,6 +25,11 @@ h1{
     color: white;
 }
 
+h2{
+    text-align: center;;
+    color: white;
+}
+
 .content {
     position: relative;
     top: 85px;
@@ -38,3 +43,5 @@ a:link {text-decoration:none;}
 a:visited {text-decoration:none;}
 a:link {color:none;}      /* unvisited link */
 a:visited {color:none;}  /* visited link */
+a:-webkit-any-link {color:black;}
+
