@@ -1,7 +1,14 @@
+  @font-face {
+        font-family: 'HelveticaNeue';
+        src: url('HelveticaNeueMedium.ttf');
+        font-weight: normal;
+       font-style: normal;
+}
+
 body {
     background-color: white;
     margin: 0px;
-    font-family: ariel;
+    font-family:  HelveticaNeue , Tahoma, serif;
 }
 
 .header {
@@ -9,7 +16,7 @@ body {
     top: 0px;
     background-color: #2272BB;
     width: 100%;
-    height: 75px;
+    height: 80px;
 }
 
 h1{
