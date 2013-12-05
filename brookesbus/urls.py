@@ -3,24 +3,25 @@ from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import RedirectView
 
 from . import views
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', include(patterns('',
-        url(r'^$', views.BusList.as_view(), name='bus-list'),
-        ))),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('bus-list'))),
     url(r'^bus/', include(patterns('',
-        url(r'^(?P<pk>\d+)/', views.BusDetail.as_view(), name='bus-detail'),
-        ))),
+        url(r'^$', views.BusList.as_view(), name='bus-list'),
+        url(r'^(?P<pk>\d+)/$', views.BusDetail.as_view(), name='bus-detail'),
+    ))),
     url(r'^schedule/', include(patterns('',
-        url(r'^(?P<pk>\d+)/', views.ScheduleDetail.as_view(), name='schedule-detail'),
-        ))),
+        url(r'^(?P<pk>\d+)/$', views.ScheduleDetail.as_view(), name='schedule-detail'),
+    ))),
     url(r'^stop/', include(patterns('',
-        url(r'^(?P<pk>\d+)/', views.StopDetail.as_view(), name='stop-detail'),
-        ))),
+        url(r'^(?P<pk>\d+)/$', views.StopDetail.as_view(), name='stop-detail'),
+    ))),
     url(r'^admin/', include(admin.site.urls)),
 )
 
