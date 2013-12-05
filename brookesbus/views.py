@@ -1,5 +1,7 @@
 from django.views.generic import DetailView, ListView
 
+import datetime
+
 from .models import Bus, Stop, Schedule
 
 
@@ -17,3 +19,8 @@ class ScheduleDetail(DetailView):
 
 class StopDetail(DetailView):
     model = Stop
+
+    def get_queryset(self):
+        time = datetime.time
+        qs = super(StopDetail, self).get_queryset()
+        return qs.filter(stops__eta >= time)
