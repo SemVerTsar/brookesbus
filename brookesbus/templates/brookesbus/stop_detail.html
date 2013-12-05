@@ -6,7 +6,7 @@
 
 {% block content %}
     <ul>
-        {% for sched in stop.stops.all %}
+        {% for sched in stop.schedule.all %}
             <li>{{ sched.bus }}, {{ sched.eta }} ,  {{ sched.route.name }}</li>
         {% endfor %}
     </ul>

@@ -30,10 +30,10 @@ class Stop(models.Model):
 
 
 class Schedule(models.Model):
-    bus = models.ForeignKey('Bus', related_name='bus')
-    stop = models.ForeignKey('Stop', related_name='stops')
+    bus = models.ForeignKey('Bus', related_name='schedule')
+    stop = models.ForeignKey('Stop', related_name='schedule')
     eta = models.TimeField()
-    route = models.ForeignKey('Route', related_name='route')
+    route = models.ForeignKey('Route', related_name='schedule')
 
     class Meta:
         ordering = ['eta']

@@ -6,7 +6,7 @@
 
 {% block content %}
     <ul>
-        {% for stop in bus.stops.all %}
+        {% for stop in bus.schedule.all %}
             <li>
                 <a href="{{ stop.get_absolute_url }}">{{ stop.name }}</a>
             </li>
