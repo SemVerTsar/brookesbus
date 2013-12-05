@@ -21,6 +21,6 @@ class StopDetail(DetailView):
     model = Stop
 
     def get_queryset(self):
-        now = datetime.datetime.now()
+        now = datetime.datetime.now().time()
         qs = super(StopDetail, self).get_queryset()
         return qs.filter(schedule__eta__gte=now)
