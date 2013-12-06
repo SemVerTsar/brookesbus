@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         {% for sched in stop.schedule.all %}
-            {% if sched.eta >= timenow %}
+            {% if sched.eta >= timenow and sched.eta <= deltatime %}
                 <tr>
                     <td><p>{{ sched.bus }}</p></td>
                     <td><p>{{ sched.eta }}</p></td>

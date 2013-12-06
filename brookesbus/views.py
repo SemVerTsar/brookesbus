@@ -45,5 +45,9 @@ class StopDetail(DetailView):
     model = Stop
 
     def get_context_data(self, **kwargs):
-        kwargs['timenow'] = datetime.datetime.now().time()
+        now = datetime.datetime.now()
+        delta = datetime.timedelta(hours=2)
+        kwargs['timenow'] = now.time()
+        delta = now + delta
+        kwargs['deltatime'] = delta.time()
         return super(StopDetail, self).get_context_data(**kwargs)
