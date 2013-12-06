@@ -11,9 +11,8 @@ from . import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # url(r'^$', RedirectView.as_view(url=reverse_lazy('home'))),
-    # url(r'^home/', views.HomeView.as_view(), name='home'),
-    url(r'^$', views.HomeView.as_view(), name='home'),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('home'), permanent=False)),
+    url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^bus/', include(patterns('',
         url(r'^$', views.BusList.as_view(), name='bus-list'),
         url(r'^(?P<pk>\d+)/$', views.BusDetail.as_view(), name='bus-detail'),
