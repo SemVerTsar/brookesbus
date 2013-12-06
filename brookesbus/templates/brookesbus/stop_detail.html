@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load pagination_tags %}
 
 {% block title %}
     <div class="header">
@@ -10,7 +11,7 @@
 {% block content %}
 
 
-        {% autopaginate stop.schedule.all 5 %}
+        {% autopaginate stop.schedule.all 10 %}
 
     <table>
         <thead>
@@ -22,15 +23,16 @@
         </thead>
         <tbody>
         {% for sched in stop.schedule.all %}
+            {% if sched.eta >= timenow %}
                 <tr>
                     <td><p>{{ sched.bus }}</p></td>
                     <td><p>{{ sched.eta }}</p></td>
                     <td><p>{{ sched.route.name }}</p></td>
                 </tr>
+            {% endif %}
         {% endfor %}
             {% paginate %}
         </tbody>
     </table>
 
->>>>>>> master
 {% endblock content %}
