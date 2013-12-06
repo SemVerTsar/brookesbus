@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <h2>{{ bus.name }}</h2>
+    <div class="header">
+        <h1>{{ bus.name }}</h1>
+        <a  href="{% url 'bus-list' %}"><span class='back symbol'>5</span></a>
+    </div>
 {% endblock title %}
 
 {% block content %}

@@ -3,16 +3,16 @@
 {% block title %}
     <div class="header">
         <h1>Brookes Bus</h1>
-        <a  href="{% url 'home' %}"><span class='back symbol'>5</span></a>
     </div>
 {% endblock title %}
 
 {% block content %}
-    <ul>
-    {% for bus in bus_list %}
+    <ul class="2col">
         <li>
-            <a href="{{ bus.get_absolute_url }}">{{ bus.name }}</a>
+            <a href="{% url 'bus-list' %}"><h2>Buses</h2></a>
         </li>
-    {% endfor %}
+        <li>
+            <a href="{% url 'stop-list' %}"><h2>Stops</h2></a>
+        </li>
     </ul>
 {% endblock content %}

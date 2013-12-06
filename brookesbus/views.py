@@ -1,8 +1,12 @@
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 
 import datetime
 
 from .models import Bus, Stop, Schedule
+
+
+class HomeView(TemplateView):
+    template_name = 'brookesbus/home.html'
 
 
 class BusList(ListView):
@@ -15,6 +19,10 @@ class BusDetail(DetailView):
 
 class ScheduleDetail(DetailView):
     model = Schedule
+
+
+class StopList(ListView):
+    model = Stop
 
 
 class StopDetail(DetailView):

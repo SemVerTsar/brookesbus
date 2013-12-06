@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
+{% load pagination_tags %}
 
 {% block title %}
-    <h2>{{ stop.name }}</h2>
+    <div class="header">
+        <h1>{{ stop.name }}</h1>
+        <a  href="{% url 'stop-list' %}"><span class='back symbol'>5</span></a>
+    </div>
 {% endblock title %}
 
 {% block content %}

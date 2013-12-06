@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -72,6 +73,7 @@ INSTALLED_APPS = (
     'admin_sso',
     'debug_toolbar',
     'gunicorn',
+    'pagination',
     'raven.contrib.django',
     'south',
 

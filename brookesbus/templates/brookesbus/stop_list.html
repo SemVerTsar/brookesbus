@@ -9,9 +9,9 @@
 
 {% block content %}
     <ul>
-    {% for bus in bus_list %}
+    {% for stop in stop_list %}
         <li>
-            <a href="{{ bus.get_absolute_url }}">{{ bus.name }}</a>
+            <a href="{{ stop.get_absolute_url }}">{{ stop.name }}</a>
         </li>
     {% endfor %}
     </ul>

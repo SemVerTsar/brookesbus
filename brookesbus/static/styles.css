@@ -5,30 +5,49 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Arrows';
+    src: url('SimpleDirectionArrows.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: white;
     margin: 0px;
     font-family:  HelveticaNeue , Tahoma, serif;
     color: black;
+    text-align: center;;
+    width: 500px;
+    max-height: 700px;
+
+}
+
+.symbol {
+    font-family: Arrows;
+    color: white;
+}
+
+.back {
+    color: white;
+    font-size: 40px;
+    position: absolute;
+    top: 17px;
+    left: 15px;
 }
 
 .header {
     position: absolute;
     top: 0px;
     background-color: #2272BB;
-    width: 100%;
+    width: 500px;
     height: 80px;
 }
 
 h1{
-    text-align: center;;
     color: white;
 }
 
-h2{
-    text-align: center;;
-    color: white;
-}
 
 .content {
     position: relative;
@@ -41,7 +60,7 @@ ul {
 
 .bg-logo {
     position: absolute;
-    top: 250px;
+    top: 265px;
     left: -150px;
     background-image: url(logo.gif);
     background-repeat:  no-repeat;
