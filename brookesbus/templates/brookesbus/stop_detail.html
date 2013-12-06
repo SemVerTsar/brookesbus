@@ -10,10 +10,12 @@
 
 {% block content %}
     <ul>
+        {% autopaginate stop.schedule.all 5 %}
         {% for sched in stop.schedule.all %}
             {% if sched.eta >= timenow %}
             <li>{{ sched.bus }}, {{ sched.eta }} ,  {{ sched.route.name }}</li>
             {% endif %}
         {% endfor %}
+            {% paginate %}
     </ul>
 {% endblock content %}
