@@ -5,6 +5,18 @@ import datetime
 from .models import Bus, Stop, Schedule
 
 
+class UpdateView(TemplateView):
+    template_name = 'brookesbus/updates.html'
+
+
+class TwitterView(TemplateView):
+    template_name = 'brookesbus/twitter.html'
+
+
+class FacebookView(TemplateView):
+    template_name = 'brookesbus/facebook.html'
+
+
 class AnnimationView(TemplateView):
     template_name = 'brookesbus/annimation.html'
 

@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
-{% load pagination_tags %}
 
 {% block title %}
     <div class="header">
-        <h1>Brookes Bus</h1>
+        <h1>Updates</h1>
         <a  href="{% url 'home' %}"><span class='back symbol'>5</span></a>
     </div>
 {% endblock title %}
 
 {% block content %}
     <ul>
-    {% autopaginate stop_list 8 %}
-    {% for stop in stop_list %}
         <li>
-            <a href="{{ stop.get_absolute_url }}">{{ stop.name }}</a>
+            <a href="{% url 'facebook' %}"><h2>Facebook</h2></a>
         </li>
-    {% endfor %}
-    {% paginate %}
+        <li>
+            <a href="{% url 'twitter' %}"><h2>Twitter</h2></a>
     </ul>
 {% endblock content %}

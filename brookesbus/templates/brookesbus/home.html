@@ -7,12 +7,15 @@
 {% endblock title %}
 
 {% block content %}
-    <ul class="2col">
+    <ul>
         <li>
             <a href="{% url 'bus-list' %}"><h2>Buses</h2></a>
         </li>
         <li>
             <a href="{% url 'stop-list' %}"><h2>Stops</h2></a>
+        </li>
+        <li>
+            <a href=""><a href="{% url 'updates' %}"><h2>Updates</h2></a>
         </li>
     </ul>
 {% endblock content %}
