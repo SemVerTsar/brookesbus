@@ -3,15 +3,13 @@ from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.core.urlresolvers import reverse_lazy
-from django.views.generic import RedirectView
 
 from . import views
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('home'), permanent=False)),
+    url(r'^$', views.AnnimationView.as_view(), name='annimation'),
     url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^bus/', include(patterns('',
         url(r'^$', views.BusList.as_view(), name='bus-list'),

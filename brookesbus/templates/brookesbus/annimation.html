@@ -1,0 +1,19 @@
+<!doctype html>
+{% load url from future %}
+
+<html>
+    <head>
+
+        <link rel="stylesheet" href="{{ STATIC_URL }}styles.css">
+
+    </head>
+
+    <body id="annimation">
+
+        <div class="box spinclock"><img src="{{ STATIC_URL }}outer-ring.png" class="fadeIn fadeIn-3s fadeIn-Delay-3s" alt="Outer Ring"></a></div>
+        <div class="box spinanti"><img src="{{ STATIC_URL }}inner-ring.png" class="fadeIn fadeIn-3s fadeIn-Delay-3s" alt="Inner Ring"></a></div>
+        <a  href="{% url 'home' %}"><h1 id="annimation-text">Enter</h1></a>
+
+    </body>
+
+</html>
