@@ -2,17 +2,32 @@
 
 {% block title %}
     <div class="header">
-        <h1>{{ stop.name }}</h1>
+        <h2>{{ stop.name }}</h2>
         <a  href="{% url 'stop-list' %}"><span class='back symbol'>5</span></a>
     </div>
 {% endblock title %}
 
 {% block content %}
-    <ul>
+
+    <table>
+        <thead>
+            <tr>
+                <td><h3>Bus</h3></td>
+                <td><h3>Time</h3></td>
+                <td><h3>Direction</h3></td>
+            </tr>
+        </thead>
+        <tbody>
         {% for sched in stop.schedule.all %}
             {% if sched.eta >= timenow %}
-            <li>{{ sched.bus }}, {{ sched.eta }} ,  {{ sched.route.name }}</li>
+                <tr>
+                    <td><p>{{ sched.bus }}</p></td>
+                    <td><p>{{ sched.eta }}</p></td>
+                    <td><p>{{ sched.route.name }}</p></td>
+                </tr>
             {% endif %}
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
+
 {% endblock content %}
