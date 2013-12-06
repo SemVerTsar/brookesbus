@@ -11,7 +11,7 @@ from . import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('bus-list'))),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('bus-list'), permanent=False)),
     url(r'^bus/', include(patterns('',
         url(r'^$', views.BusList.as_view(), name='bus-list'),
         url(r'^(?P<pk>\d+)/$', views.BusDetail.as_view(), name='bus-detail'),
