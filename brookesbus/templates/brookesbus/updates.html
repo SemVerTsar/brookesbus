@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <div class="header">
+        <h1>Updates</h1>
+        <a  href="{% url 'home' %}"><span class='back symbol'>5</span></a>
+    </div>
+{% endblock title %}
+
+{% block content %}
+    <ul>
+        <li>
+            <a href="{% url 'facebook' %}"><h2>Facebook</h2></a>
+        </li>
+        <li>
+            <a href="{% url 'twitter' %}"><h2>Twitter</h2></a>
+    </ul>
+{% endblock content %}
