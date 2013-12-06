@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load pagination_tags %}
 
 {% block title %}
     <div class="header">
@@ -9,10 +10,12 @@
 
 {% block content %}
     <ul>
+    {% autopaginate stop_list 8 %}
     {% for stop in stop_list %}
         <li>
             <a href="{{ stop.get_absolute_url }}">{{ stop.name }}</a>
         </li>
     {% endfor %}
+    {% paginate %}
     </ul>
 {% endblock content %}
