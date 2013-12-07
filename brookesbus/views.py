@@ -17,7 +17,7 @@ class FacebookView(TemplateView):
     template_name = 'brookesbus/facebook.html'
 
 
-class AnnimationView(TemplateView):
+class AnimationView(TemplateView):
     template_name = 'brookesbus/annimation.html'
 
 
@@ -45,5 +45,6 @@ class StopDetail(DetailView):
     model = Stop
 
     def get_context_data(self, **kwargs):
-        kwargs['schedule_list'] = self.object.schedule.all()
+        timenow = datetime.datetime.now().time()
+        kwargs['schedule_list'] = self.object.schedule.all().filter(eta__gte=timenow)
         return super(StopDetail, self).get_context_data(**kwargs)
