@@ -55,4 +55,8 @@ class StopDetail(ListView):
 
     def get_queryset(self):
         now = datetime.datetime.now()
-        return self.stop.schedule.filter(eta__gte=now)
+        qs = self.stop.schedule.filter(eta__gte=now)
+        bus_pk = self.request.GET.get('bus_pk')
+        if bus_pk:
+            qs = qs.filter(bus__pk=bus_pk)
+        return qs
