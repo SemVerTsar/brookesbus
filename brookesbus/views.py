@@ -7,7 +7,7 @@ from .models import Bus, Stop, Schedule
 
 
 class UpdateView(TemplateView):
-    template_name = 'brookesbus/updates.html'
+    template_name = 'brookesbus/index.html'
 
 
 class TwitterView(TemplateView):
