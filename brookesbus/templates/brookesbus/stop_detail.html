@@ -11,7 +11,7 @@
 {% block content %}
 
 
-        {% autopaginate stop.schedule.all 10 %}
+        {% autopaginate schedule_list 5 %}
 
     <table>
         <thead>
@@ -23,16 +23,14 @@
         </thead>
         <tbody>
         {% for sched in schedule_list %}
-            {% if sched.eta >= timenow %}
-                <tr>
-                    <td><p>{{ sched.bus }}</p></td>
-                    <td><p>{{ sched.eta }}</p></td>
-                    <td><p>{{ sched.route.name }}</p></td>
-                </tr>
-            {% endif %}
+            <tr>
+                <td><p>{{ sched.bus }}</p></td>
+                <td><p>{{ sched.eta }}</p></td>
+                <td><p>{{ sched.route.name }}</p></td>
+            </tr>
         {% endfor %}
-            {% paginate %}
         </tbody>
     </table>
+        {% paginate %}
 
 {% endblock content %}
