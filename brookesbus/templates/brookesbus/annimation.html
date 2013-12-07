@@ -5,14 +5,19 @@
     <head>
 
         <link rel="stylesheet" href="{{ STATIC_URL }}styles.css">
-
+        <script type="text/javascript">
+            <!--
+            function delayer(){
+                window.location = "{% url 'home' %}"
+            }
+            //-->
+            </script>
     </head>
 
-    <body id="annimation">
+    <body id="annimation" onLoad="setTimeout('delayer()', 5000)">
 
         <div class="box spinclock"><img src="{{ STATIC_URL }}outer-ring.png" class="fadeIn fadeIn-3s fadeIn-Delay-3s" alt="Outer Ring"></a></div>
         <div class="box spinanti"><img src="{{ STATIC_URL }}inner-ring.png" class="fadeIn fadeIn-3s fadeIn-Delay-3s" alt="Inner Ring"></a></div>
-        <a  href="{% url 'home' %}"><h1 id="annimation-text">Enter</h1></a>
 
     </body>
 
