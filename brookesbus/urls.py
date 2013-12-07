@@ -9,7 +9,7 @@ from . import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', views.AnnimationView.as_view(), name='annimation'),
+    url(r'^$', views.AnimationView.as_view(), name='animation'),
     url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^updates/', include(patterns('',
         url(r'^$', views.UpdateView.as_view(), name='updates'),
