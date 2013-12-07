@@ -11,7 +11,7 @@
     <ul>
         {% for stop in bus.stops.all %}
             <li>
-                <a href="{{ stop.get_absolute_url }}?bus_pk={{bus.pk}}">{{ stop.name }}</a>
+                <a href="{{ stop.get_absolute_url }}?bus_pk={{ bus.pk }}">{{ stop.name }}</a>
             </li>
         {% endfor %}
     </ul>
