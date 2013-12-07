@@ -1,6 +1,6 @@
 import datetime
 
-from django.http.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Bus, Stop, Schedule
