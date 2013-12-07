@@ -44,6 +44,7 @@ class StopList(ListView):
 
 class StopDetail(ListView):
     model = Schedule
+    template_name = 'brookesbus/stop_detail.html'
 
     def get(self, request, *args, **kwargs):
         self.stop = get_object_or_404(Stop, pk=kwargs['pk'])
