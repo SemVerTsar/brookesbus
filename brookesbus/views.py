@@ -50,7 +50,7 @@ class StopDetail(ListView):
         return super(StopDetail, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        return super(StopDetail, self).get_context_data(stop=stop, **kwargs)
+        return super(StopDetail, self).get_context_data(stop=self.stop, **kwargs)
 
     def get_queryset(self):
         now = datetime.datetime.now()
