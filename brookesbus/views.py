@@ -1,6 +1,7 @@
-from django.views.generic import DetailView, ListView, TemplateView
-
 import datetime
+
+from django.http.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Bus, Stop, Schedule
 
@@ -18,7 +19,7 @@ class FacebookView(TemplateView):
 
 
 class AnimationView(TemplateView):
-    template_name = 'brookesbus/annimation.html'
+    template_name = 'brookesbus/animation.html'
 
 
 class HomeView(TemplateView):
@@ -41,10 +42,16 @@ class StopList(ListView):
     model = Stop
 
 
-class StopDetail(DetailView):
-    model = Stop
+class StopDetail(ListView):
+    model = Schedule
+
+    def get(self, *args, **kwargs):
+        self.stop = get_object_or_404(Stop, pk=kwargs['pk'])
+        return super(StopScheduleList, self).get()
 
     def get_context_data(self, **kwargs):
-        timenow = datetime.datetime.now().time()
-        kwargs['schedule_list'] = self.object.schedule.all().filter(eta__gte=timenow)
-        return super(StopDetail, self).get_context_data(**kwargs)
+        return super(StopDetail, self).get_context_data(stop=stop, **kwargs)
+
+    def get_queryset(self):
+        now = datetime.datetime.now()
+        return self.stop.schedule.filter(eta__gte=now)

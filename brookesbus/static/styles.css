@@ -93,14 +93,14 @@ a:-webkit-any-link {color:black;}
 
 /* Annimation bits*/
 
-#annimation-text {
+#animation-text {
     position: absolute;
     top: 325px;
     left: 212px;
     color: white;
 }
 
-#annimation {
+#animation {
     background-color: #2272BB;
 }
 
